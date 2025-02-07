@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de la Compra Neón</title>
+    <style>
+        body {
+            font-family: 'Orbitron', sans-serif; /* Fuente futurista */
+            margin: 0;
+            padding: 0;
+            background-color: #111; /* Fondo oscuro */
+            color: #f0f0f0; /* Texto claro por defecto */
+            overflow-x: hidden; /* Evita scroll horizontal accidental */
+        }
+
+        .container {
+            max-width: 800px; /* Más ancho para pantallas grandes */
+            margin: 30px auto;
+            padding: 25px;
+            background-color: rgba(25, 25, 25, 0.8); /* Fondo con transparencia */
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3); /* Sombra neón */
+            backdrop-filter: blur(5px);  /* Efecto de desenfoque (opcional) */
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.5em; /* Título más grande */
+            color: #0ff; /* Color neón para el título */
+            text-shadow: 0 0 10px #0ff, 0 0 20px #0ff, 0 0 30px #0ff; /* Sombra neón más intensa */
+            margin-bottom: 40px;
+        }
+
+        h2 {
+            color: #ff0; /* Neón amarillo */
+            border-bottom: 3px solid #ff0;
+            padding-bottom: 8px;
+            margin-top: 40px;
+            font-size: 1.5em;
+            text-shadow: 0 0 8px #ff0;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 15px;
+            border-radius: 8px;
+            transition: background-color 0.3s ease, transform 0.2s ease; /* Transiciones suaves */
+
+        }
+
+        li:hover {
+          background-color: rgba(0, 255, 255, 0.1);  /*Resaltado de color claro */
+          transform: scale(1.02); /* Efecto de escala al pasar el cursor */
+
+        }
+
+
+
+        li label{
+          flex-grow:1;
+        }
+
+        input[type="checkbox"] {
+            appearance: none; /* Quitar apariencia predeterminada */
+            -webkit-appearance: none; /* Para Safari/iOS */
+            width: 25px;
+            height: 25px;
+            border: 2px solid #0ff; /* Borde neón */
+            border-radius: 5px;
+            margin-right: 20px;
+            cursor: pointer;
+            transition: background-color 0.2s ease, box-shadow 0.2s ease;
+            outline: none; /* Quita el contorno azul al hacer clic */
+
+        }
+
+        input[type="checkbox"]:checked {
+            background-color: #0ff; /* Relleno neón al marcar */
+            box-shadow: 0 0 10px #0ff, 0 0 15px #0ff; /* Sombra neón al marcar */
+
+        }
+
+       input[type="checkbox"]:checked + label {
+           text-decoration: line-through;
+           color: #888; /* Texto más tenue al marcar */
+
+          opacity: 0.7;  /*Ligeramente transparente*/
+          transition: color 0.3s ease;/*Con transicion de color*/
+        }
+        .descripcion { /*Descripciones con estilo especifico*/
+           color: #0ff; /*Neón azul */
+           font-style: italic;
+
+        }
+
+        .reset-button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: #0ff;
+            color: #111;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.2em;
+            font-weight: bold;
+            text-transform: uppercase; /* Mayúsculas */
+            margin-top: 30px;
+            box-shadow: 0 0 15px #0ff, 0 0 25px #0ff; /* Sombra neón */
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+
+        }
+
+        .reset-button:hover {
+            background-color: #fff;  /*Cambia el color de fondo del boton a blanco*/
+             color:#000;
+            box-shadow: 0 0 20px #fff, 0 0 35px #fff; /* Sombra más intensa */
+        }
+
+
+    /* Adaptaciones para dispositivos móviles */
+       @media (max-width: 600px) {
+        .container {
+           padding: 15px; /* Ajustar el padding del contenedor*/
+
+           border-radius: 0;  /*Contenedor ocupe todo el ancho posible*/
+           margin:0;
+            width: 100%;/*Ancho máximo 100%*/
+
+          }
+          input[type="checkbox"]{ /*Reducimos ligeramente los checkbox*/
+             width: 20px;
+             height: 20px;
+
+           }
+
+         }
+
+    </style>
+
+     <!--Google Fonts-->
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+</head>
+<body>
+    <div class="container">
+        <h1>Lista de la Compra Neón</h1>
+
+        <ul>
+           <!-- Se llenara desde JavaScript  -->
+        </ul>
+
+
+        <button class="reset-button">Reiniciar Lista</button>
+    </div>
+   <script>
+     const listaDeLaCompra = [
+  {
+    "category": "Cereales y Fuentes de Carbohidratos",
+    "items": [
+      "Copos de avena: 250 g",
+      "Arroz blanco: 230 g",
+      "Batata (boniato): 450 g",
+      "Papas (patatas): 800 g",
+      "Pasta (preferiblemente sin glifosato, tipo Garofalo): 90 g"
+    ]
+  },
+  {
+    "category": "Proteínas Animales",
+    "items": [
+      "Huevos: 30 unidades",
+      "Carne roja magra: 600 g",
+      "Pechuga de pollo: 2070 g",
+      "Pescado azul (por ejemplo, caballa o salmón de pastoreo): 240 g",
+      "Hígado de pastoreo: 300 g"
+    ]
+  },
+  {
+    "category": "Proteína en Polvo",
+    "items": [
+      "Proteína de suero (whey): 225 g"
+    ]
+  },
+   {
+    "category": "Grasas y Lácteos",
+    "items": [
+        "Ghee o mantequilla de pastoreo: 30 g",
+        "Aceite de oliva virgen extra (AOVE): 150 ml"
+    ]
+  },
+     {
+    "category": "Vegetales",
+    "items": [
+        "Brócoli: 600 g",
+        "Coliflor: 300 g",
+        "Repollo: 300 g",
+        "Espinacas: 300 g",
+        "Lechuga romana: 1 unidad (aprox. 300 g)",
+        "Tomates: 300 g",
+        "Zanahorias: 300 g",
+        "Calabacín: 200 g"
+        ]
+    },
+      {
+    "category": "Frutas",
+    "items": [
+         "Frutos rojos (fresas, arándanos, frambuesas, etc.): 500 g",
+          "Limones: 4 unidades",
+        "Opcional: Si deseas complementar la dieta con más frutas, puedes incluir 3 naranjas y 2 manzanas, pero la base en este menú es la ingesta de frutos rojos y limones."
+        ]
+      },
+          {
+            "category": "Frutos Secos y Semillas",
+             "items": [
+                  "Nueces y/o pipas de calabaza (o almendras): 300 g"
+             ]
+          },
+          {
+           "category": "Caldos y Líquidos Especiales",
+            "items":[
+                 "Caldo de huesos: 1 litro",
+                 "Agua de coco: 1 litro (opcional, para hidratar durante el entrenamiento si prefieres esta fuente en lugar de bebidas isotónicas)."
+            ]
+
+          },
+          {
+            "category": "Otros Condimentos y Extras",
+             "items":[
+                "Miel cruda: 100 g",
+                 "Jengibre fresco: 50 g",
+                 "Vinagre de manzana sin filtrar: 250 ml",
+                "En el caso de que no dispongas ya de estos productos en casa, son esenciales para algunos “combos” y para estimular la digestión."
+             ]
+          }
+
+      ]
+
+    const listaUL = document.querySelector('ul'); //Selecciona el elemento UL del HTML
+
+    function crearLista(lista) { //Crea cada uno de los elementos
+        listaUL.innerHTML = ''; //Limpia la lista
+            lista.forEach(seccion => {
+                 // Añadir el encabezado de la sección
+            const h2 = document.createElement('h2');
+            h2.textContent = seccion.category;
+            listaUL.appendChild(h2);
+
+             seccion.items.forEach(item => {
+             const li = document.createElement('li'); //Crea elemento lista
+             const checkbox = document.createElement('input');  //Crea el input
+             checkbox.type = 'checkbox';  //Hace que el input sea tipo checkbox
+             checkbox.id = item; //El id de cada producto será su mismo nombre, para referenciarlo luego
+              checkbox.addEventListener('change', guardarEstado); //Cuando un checkbox cambia, llama a una función que guarda su estado
+
+              const label = document.createElement('label');
+              label.htmlFor = item;   //Aquí relacionamos el label con el input con el mismo ID
+
+              const span = document.createElement('span');
+              span.textContent = item; //El texto del span sera el item que toca.
+
+                label.appendChild(span);
+
+                li.appendChild(checkbox);
+                li.appendChild(label); //El label tiene dentro el texto + el checkbox
+
+
+               listaUL.appendChild(li);
+        });
+    });
+
+        cargarEstado(); // Al cargar la página, restaura el estado
+    }
+
+
+        // Función para guardar el estado de los checkboxes en localStorage
+    function guardarEstado() {
+         const checkboxes = document.querySelectorAll('input[type="checkbox"]'); //Pilla todos los checkbox
+        const estado = {};  //Crea un onbjeto donde se guardará cada checkbox marcado
+
+        checkboxes.forEach(checkbox => {  //Guardamos los valores de los checkbox marcados.
+            estado[checkbox.id] = checkbox.checked;  //En el objeto "estado" se guarda el item con el valor del checkbox (True o False)
+        });
+
+        localStorage.setItem('estadoListaCompra', JSON.stringify(estado)); //Transforma el objeto a texto y lo mete dentro del localStorage
+    }
+
+
+    function cargarEstado() {
+    const estadoGuardado = localStorage.getItem('estadoListaCompra');
+
+    if (estadoGuardado) { //Si hay algo guardado:
+
+        const estado = JSON.parse(estadoGuardado); //lo convierte a objeto de nuevo
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]'); //Coge todos los checkbox
+
+        checkboxes.forEach(checkbox => {  //Por cada checkbox pone si esta checkeado o no.
+            checkbox.checked = estado[checkbox.id] || false; // Si existe el valor, se pone, sino, es false.
+        });
+      }
+    }
+
+
+    function reiniciarLista() {
+       const checkboxes = document.querySelectorAll('input[type="checkbox"]'); //Pilla todos los input checkbox que haya
+        checkboxes.forEach(checkbox => {
+            checkbox.checked = false; //Los pone todos a FALSE
+        });
+
+         localStorage.removeItem('estadoListaCompra'); //Borra el localStorage con el estado guardado.
+     }
+
+     const resetBtn = document.querySelector('.reset-button');
+      resetBtn.addEventListener('click', reiniciarLista);  //El botón de reset llama a la funcion reiniciarLista
+
+       crearLista(listaDeLaCompra);
+
+   </script>
+</body>
+</html>
